@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oropéndola | El Alma de la Madera</title>
+    
+    <!-- FUENTES -->
+    <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            --madera-oscura: #482318;
+            --madera-clara: #bc8a5f;
+            --oro: #eec12d;
+            --fondo: #fcfaf7;
+            --blanco: #ffffff;
+            --transicion: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Libre Baskerville', serif;
+            background-color: var(--fondo);
+            background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+            color: var(--madera-oscura);
+            scroll-behavior: smooth;
+        }
+
+        /* NAVEGACIÓN */
+        nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 12px 25px;
+            border-radius: 50px;
+            display: flex;
+            gap: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            z-index: 1000;
+            border: 1px solid var(--madera-clara);
+        }
+
+        nav a {
+            color: var(--madera-oscura);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        nav a i { font-size: 1.2rem; color: var(--madera-clara); }
+        nav a.active { color: var(--oro); }
+
+        /* SECCIONES TRANSICIÓN */
+        section {
+            display: none;
+            padding: 60px 20px 120px;
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        section.active {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        /* HEADER / LOGO */
+        .main-header {
+            text-align: center;
+            padding-top: 40px;
+        }
+
+        .logo-small {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--madera-oscura);
+            margin-bottom: 10px;
+        }
+
+        h1 { font-family: 'Uncial Antiqua', cursive; font-size: 2.5rem; margin: 0; }
+        .tagline { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; letter-spacing: 3px; color: var(--madera-clara); text-transform: uppercase; margin-bottom: 40px;}
+
+        /* INICIO (HERO) */
+        .hero-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        .hero-img { width: 100%; height: 300px; object-fit: cover; }
+        .hero-content { padding: 30px; text-align: center; }
+
+        /* COLECCIONES */
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: white;
+            border: 1px solid var(--madera-clara);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: var(--transicion);
+        }
+        .filter-btn.active { background: var(--madera-oscura); color: white; }
+
+        .grid-artesanias {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .art-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transicion);
+        }
+        .art-item:hover { transform: translateY(-10px); }
+        .art-item img { width: 100%; height: 250px; object-fit: cover; }
+        .art-info { padding: 20px; }
+        .art-info h3 { font-family: 'Uncial Antiqua', cursive; margin: 0; font-size: 1.2rem; }
+        .art-info p { font-size: 0.9rem; color: #666; margin: 10px 0; }
+
+        /* HISTORIA */
+        .story-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        @media (max-width: 768px) { .story-layout { grid-template-columns: 1fr; } }
+        
+        .story-text { line-height: 1.8; font-size: 1.05rem; text-align: justify; }
+        .story-img { width: 100%; border-radius: 20px; border: 8px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+
+        /* CONTACTO */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .contact-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transicion);
+            text-decoration: none;
+            color: var(--madera-oscura);
+        }
+        .contact-card:hover { background: var(--oro); color: white; }
+        .contact-card i { font-size: 2rem; margin-bottom: 15px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <img src="logo.png.jpeg" alt="Logo" class="logo-small">
+        <h1>Oropéndola</h1>
+        <div class="tagline">Arte, Madera y Tradición</div>
+    </header>
+
+    <!-- NAVEGACIÓN -->
+    <nav>
+        <a href="#inicio" class="nav-link active" onclick="showSection('inicio')">
+            <i class="fas fa-home"></i><span>Inicio</span>
+        </a>
+        <a href="#colecciones" class="nav-link" onclick="showSection('colecciones')">
+            <i class="fas fa-hammer"></i><span>Obras</span>
+        </a>
+        <a href="#historia" class="nav-link" onclick="showSection('historia')">
+            <i class="fas fa-book-open"></i><span>Historia</span>
+        </a>
+        <a href="#contacto" class="nav-link" onclick="showSection('contacto')">
+            <i class="fas fa-paper-plane"></i><span>Contacto</span>
+        </a>
+    </nav>
+
+    <!-- SECCIÓN INICIO -->
+    <section id="inicio" class="active">
+        <div class="hero-card">
+            <img src="juntos2.jpeg" alt="Taller" class="hero-img">
+            <div class="hero-content">
+                <h2>Bienvenidos al Taller</h2>
+                <p>"Transformamos la nobleza de la madera en pedazos de historia costarricense. Cada pieza es tallada a mano con la paciencia que dicta la tradición."</p>
+                <br>
+                <button class="filter-btn active" onclick="showSection('colecciones')">Explorar Colección</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN COLECCIONES -->
+    <section id="colecciones">
+        <h2 style="text-align: center; font-family: 'Uncial Antiqua';">Nuestras Colecciones</h2>
+        
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterGallery('todas')">Todas</button>
+            <button class="filter-btn" onclick="filterGallery('casitas')">Casitas Históricas</button>
+            <button class="filter-btn" onclick="filterGallery('utilitario')">Utilitarios</button>
+            <button class="filter-btn" onclick="filterGallery('especial')">Pedidos Especiales</button>
+        </div>
+
+        <div class="grid-artesanias" id="gallery">
+            <!-- Item 1 -->
+            <div class="art-item casitas">
+                <img src="Casavictoriana1.jpeg" alt="Casa Victoriana">
+                <div class="art-info">
+                    <h3>Estilo Victoriano</h3>
+                    <p>Inspirada en la arquitectura de Amando Céspedes, Heredia.</p>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="art-item casitas">
+                <img src="Casapachuca1.jpeg" alt="Casa Pachuca">
+                <div class="art-info">
+                    <h3>Barrio Pachuca</h3>
+                    <p>Colores vivos y detalles en madera que cuentan historias de barrio.</p>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="art-item casitas">
+                <img src="Casatipica1.jpeg" alt="Casa Típica">
+                <div class="art-info">
+                    <h3>Casona Rural</h3>
+                    <p>La esencia del campo costarricense en una miniatura detallada.</p>
+                </div>
+            </div>
+            <!-- Item 4 -->
+            <div class="art-item utilitario">
+                <img src="logo.png.jpeg" alt="Reloj"> <!-- Reemplazar con imagen real -->
+                <div class="art-info">
+                    <h3>Relojes Artesanales</h3>
+                    <p>Funcionalidad y arte en maderas preciosas del valle central.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN HISTORIA -->
+    <section id="historia">
+        <div class="story-layout">
+            <div>
+                <img src="juntos2.jpeg" alt="Artesanos" class="story-img">
+            </div>
+            <div class="story-text">
+                <h2 style="font-family: 'Uncial Antiqua';">Herencia en cada veta</h2>
+                <p>Oropéndola nace en el corazón de Heredia como un tributo a la arquitectura que alguna vez definió nuestras ciudades. Somos una familia de artesanos que cree que la madera tiene memoria.</p>
+                <p>Nuestra técnica combina el tallado tradicional con una investigación histórica profunda para replicar fachadas patrimoniales, rescatando estilos como el victoriano, el neoclásico y el popular "pachuca".</p>
+                <p><strong>Cada pieza es única, numerada y firmada, garantizando que usted se lleva un pedazo de alma costarricense a su hogar.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CONTACTO -->
+    <section id="contacto">
+        <h2 style="text-align: center; font-family: 'Uncial Antiqua';">¿Tienes un proyecto en mente?</h2>
+        <p style="text-align: center; margin-bottom: 40px;">Realizamos envíos a todo el país y pedidos personalizados.</p>
+        
+        <div class="contact-grid">
+            <a href="https://wa.me/50683336102" class="contact-card">
+                <i class="fab fa-whatsapp"></i>
+                <h3>WhatsApp</h3>
+                <p>Atención Inmediata</p>
+            </a>
+            <a href="mailto:oropendolartesanias@gmail.com" class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <h3>Email</h3>
+                <p>Cotizaciones</p>
+            </a>
+            <a href="https://www.instagram.com/croropendola/" class="contact-card">
+                <i class="fab fa-instagram"></i>
+                <h3>Instagram</h3>
+                <p>Galería Diaria</p>
+            </a>
+        </div>
+
+        <div style="margin-top: 50px; text-align: center; opacity: 0.7; font-size: 0.9rem;">
+            <p><i class="fas fa-map-marker-alt"></i> Ulloa, Heredia, Costa Rica</p>
+            <p><i class="fas fa-truck"></i> Envíos nacionales por Correos de CR</p>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px; font-size: 0.7rem; opacity: 0.5;">
+        © 2026 Oropéndola Artesanías en Madera | Heredia, CR
+    </footer>
+
+    <script>
+        // NAVEGACIÓN ENTRE SECCIONES
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+            // Mostrar la seleccionada
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Actualizar clase activa en el menú
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('onclick').includes(sectionId)) {
+                    link.classList.add('active');
+                }
+            });
+
+            window.scrollTo(0, 0);
+        }
+
+        // FILTRO DE GALERÍA
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.art-item');
+            const btns = document.querySelectorAll('.filter-btn');
+
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            items.forEach(item => {
+                if (category === 'todas' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                    item.classList.add('animate__animated', 'animate__fadeIn');
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Manejar el hash de la URL (por si alguien refresca o usa botones atrás/adelante)
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.replace('#', '');
+            if(hash) showSection(hash);
+        });
+    </script>
+</body>
+</html>
