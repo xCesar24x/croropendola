@@ -32,8 +32,9 @@
             font-family: 'Libre Baskerville', serif;
             background-color: var(--madera-oscura);
             color: var(--blanco);
-            overflow: hidden;
-            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto; /* Permitir scroll */
+            min-height: 100vh;
             width: 100vw;
             cursor: default;
         }
@@ -65,12 +66,12 @@
         /* CONTENEDOR PRINCIPAL */
         main {
             position: relative;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding-top: 5vh;
+            padding: 5vh 20px 80px; /* Padding lateral y fondo */
             z-index: 10;
         }
 
@@ -180,10 +181,10 @@
 
         /* CAROUSEL KINÉTICO REVOLUCIONARIO */
         .carousel-container {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 35vh;
+            position: relative; /* Flujo natural */
+            margin-top: 20px;
+            width: 100vw;
+            height: clamp(200px, 35vh, 300px);
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -252,8 +253,8 @@
 
         /* INDICADOR DE SCROLL */
         .scroll-hint {
-            position: absolute;
-            bottom: 36vh;
+            position: relative;
+            margin-top: 40px;
             font-family: 'Uncial Antiqua', cursive;
             font-size: 0.8rem;
             color: var(--oro);
